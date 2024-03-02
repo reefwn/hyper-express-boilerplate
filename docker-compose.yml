@@ -1,0 +1,26 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - '7000:7000'
+    env_file:
+      - .env.local
+    volumes:
+      - ./prisma:/app/prisma
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+
+  db:
+    image: postgres:14.2
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: example
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data

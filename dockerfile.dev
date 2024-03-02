@@ -1,0 +1,11 @@
+FROM node:20.10 AS base
+
+WORKDIR /app
+
+COPY . .
+
+RUN yarn install
+
+EXPOSE 7000
+
+CMD ["yarn", "start:dev"]
